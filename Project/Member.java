@@ -9,6 +9,17 @@ public class Member extends notAuothority{
         this.MemberShip = memberShip;
         this.weight = weight;
     }
+    public Member(String Name, String Sex, String Address, int PhoneNumber, String memberShip, Double weight){
+        super(Name, Sex, Address, PhoneNumber);
+        this.MemberShip = memberShip;
+        this.weight = weight;
+        for (int i = 0; i<members.length +1;i++){
+            if(members[i] == null){
+                SSN = i;
+            }
+        }
+    }
+    
 
     public void getMemberinfo(){
         System.out.println("Name: "+Name);
