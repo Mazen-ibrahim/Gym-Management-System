@@ -3,7 +3,7 @@ package Project;
 public class Member extends notAuothority{
     String MemberShip;
     Double weight;
-
+    
     public Member(String Name, int SSN, String Sex, String Address, int PhoneNumber, String memberShip, Double weight){
         super(Name, SSN, Sex, Address, PhoneNumber);
         this.MemberShip = memberShip;
