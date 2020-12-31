@@ -1,4 +1,4 @@
-package Gym_Management_System;
+package Project;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,11 +121,33 @@ public class Employee extends auothority{
             }
         }
     }
-    public void AddMember_Session(Session[] sessions,int MemberID){
-        //TODO
+    public void AddMember_Session(Session[] sessions,String date,Member member){
+        for (Session session : sessions) {
+            if(session.date.equals(date)){
+                session.members_in_Session = appendValue(session.members_in_Session, member);
+            }
+        }
     }
-    public void RemoveMember_Session(Session[] sessions,int MemberID){
-       //TODO
+    public void RemoveMember_Session(Session[] sessions,String date,Member member){
+        for (Session session : sessions) {
+            if(session.date.equals(date)){
+                session.members_in_Session = removeValue(session.members_in_Session, member);
+            }
+        }
+    }
+    private Member[] appendValue(Member[] supervise,Member member){
+        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(supervise));
+        temp.add(member);
+        supervise = temp.toArray(supervise);
+        System.out.println("Member is added Successfully");
+        return supervise;
+    }
+    private Member[] removeValue(Member[] supervise,Member member){
+        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(supervise));
+        temp.remove(member);
+        supervise = temp.toArray(supervise);
+        System.out.println("Member is added Successfully");
+        return supervise;
     }
 
 }
