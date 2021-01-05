@@ -1,13 +1,15 @@
 package Project;
 
 public abstract class auothority {
+    Session []SessionsArray = new Session[10];
+    Member[] MembersArray = new Member[10];
+    int []phone = new int[3];
+    int    SSN;
+    int Salary;
+    String Hire_Date;
     String Name;
     String Sex;
     String Address;
-    String Hire_Date;
-    int[]  phone = new int[3];
-    int    SSN;
-    int Salary;
 
     public auothority(String Name, int SSN, String Sex, String Address, int PhoneNumber, int Salary, String Hire_Date){
         this.Name      = Name;
