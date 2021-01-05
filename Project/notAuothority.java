@@ -17,6 +17,7 @@ public abstract class notAuothority {
             if(phone[i] == 0)
             {
                 phone[i] = PhoneNumber;
+                break;
             }
         }
     }
@@ -29,6 +30,7 @@ public abstract class notAuothority {
             if(phone[i] == 0)
             {
                 phone[i] = PhoneNumber;
+                break;
             }
         }
 
