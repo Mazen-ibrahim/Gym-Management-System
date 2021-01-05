@@ -1,11 +1,10 @@
 package Project;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Adminstrator extends auothority {
-
+    
+    Trainer []TrainersArray = new Trainer[10];
     Scanner scan = new Scanner(System.in);
 
     public Adminstrator(String Name, int Salary, int SSN, String Sex, String Address, int PhoneNumber, String Hire_Date){
@@ -13,7 +12,7 @@ public class Adminstrator extends auothority {
 
     }
 
-    public void addTrainer_System(Trainer[] trainers){
+    public void addTrainer_System(){
         String Name;
         String Sex;
         String Address;
@@ -32,11 +31,11 @@ public class Adminstrator extends auothority {
         System.out.printf("Salary: ");
         Salary = scan.nextInt();
 
-        trainer = new Trainer(Name, Sex, Address, phoneNumber, Salary,trainers);
-        trainers = appendValue(trainers, trainer);
+        trainer = new Trainer(Name, Sex, Address, phoneNumber, Salary,TrainersArray);
+        appendValue(TrainersArray, trainer);
 
         }
-    public void editTrainer_System(Trainer[] trainers,int TrainerID){
+    public void editTrainer_System(int TrainerID){
         int choice;
         String Name;
         String Sex;
@@ -44,7 +43,7 @@ public class Adminstrator extends auothority {
         int phoneNumber;
         int Salary;
         boolean Done = false;
-        for (Trainer trainer : trainers) {
+        for (Trainer trainer : TrainersArray) {
             if(trainer.SSN == TrainerID){
                 trainer.DisplayData();
                 System.out.println("Choose which element would you like to edit:");
@@ -101,10 +100,10 @@ public class Adminstrator extends auothority {
             }
         }
     }
-    public void RemoveTrainer_System(Trainer[] trainers,int TrainerID){
-        for (Trainer trainer : trainers) {
+    public void RemoveTrainer_System(int TrainerID){
+        for (Trainer trainer : TrainersArray) {
             if(trainer.SSN == TrainerID){
-                trainers = removeValue(trainers, trainer);
+                removeValue(TrainersArray, trainer);
                 System.out.println("Trainer is removed successfully");
             }
             else{
@@ -112,7 +111,7 @@ public class Adminstrator extends auothority {
             }
         }
     }
-    public void AddSession(Session[] sessions){
+    public void AddSession(){
         String description;
         String type;
         String date;
@@ -126,13 +125,13 @@ public class Adminstrator extends auothority {
         date = scan.next();
 
         session = new Session(description, type, date);
-        sessions = appendValue(sessions, session);
+        appendValue(SessionsArray, session);
 
     }
-    public void editSession(Session[] sessions,String date){
+    public void editSession(String date){
         Boolean Done = false;
         int choice;
-        for (Session session : sessions) {
+        for (Session session : SessionsArray) {
             if(session.date.equals(date)){
                 session.displayData();
                 System.out.println("Choose which element would you like to edit:");
@@ -174,36 +173,36 @@ public class Adminstrator extends auothority {
             }
         }
     }
-    public void RemoveSession(Session[] sessions,String date){
-        for (Session session : sessions) {
+    public void RemoveSession(String date){
+        for (Session session : SessionsArray) {
             if(session.date.equals(date)){
-                sessions = removeValue(sessions, session);
+                removeValue(SessionsArray, session);
                 System.out.println("Session is removed successfully");
             } else{
                 System.out.println("I couldn't find this Session in our System");
             }
         }
     }
-    public void AssginTrainer_Member(int TrainerID,int MemberID, Member[] members,Trainer[] trainers){
+    public void AssginTrainer_Member(int TrainerID,int MemberID){
         int trainer_num;
         int member_num;
         int num_of_members;
 
-        for (int i =0; i<members.length ;i++) {
+        for (int i =0; i<MembersArray.length ;i++) {
             System.out.println("Members");
             System.out.println("Name        SSN");
-            System.out.printf(i+":"+members[i].Name+"       "+members[i].SSN);
+            System.out.printf(i+":"+MembersArray[i].Name+"       "+MembersArray[i].SSN);
         }
-        for (int i =0; i< trainers.length ;i++) {
+        for (int i =0; i< TrainersArray.length ;i++) {
             System.out.println("Trainers");
             System.out.println("Name        SSN");
-            System.out.printf(i+":"+trainers[i].Name+"       "+trainers[i].SSN);
+            System.out.printf(i+":"+TrainersArray[i].Name+"       "+TrainersArray[i].SSN);
         }
         System.out.println("Choose the Trainer Number which will be assigned to the members");
         System.out.printf("Trainer Number: ");
         trainer_num = scan.nextInt();
         
-        System.out.println("How many Members Do you want to assgin them to the Trainer: "+trainers[trainer_num].Name);
+        System.out.println("How many Members Do you want to assgin them to the Trainer: "+TrainersArray[trainer_num].Name);
         System.out.printf("Number of Members: ");
         num_of_members = scan.nextInt();
         
@@ -212,43 +211,87 @@ public class Adminstrator extends auothority {
             System.out.printf("Member Number: ");
             member_num = scan.nextInt();
             
-            trainers[trainer_num].Supervise = appendValue(trainers[trainer_num].Supervise, members[member_num]);
+            appendValue(TrainersArray[trainer_num].Supervise, MembersArray[member_num]);
         }
     }
     
-    private Trainer[] appendValue(Trainer[] trainers,Trainer trainer){
-        ArrayList<Trainer> temp = new ArrayList<Trainer>(Arrays.asList(trainers));
-        temp.add(trainer);
-        trainers = temp.toArray(trainers);
-        return trainers;
+    private void appendValue(Trainer[] trainers,Trainer trainer){
+        for (int i = 0; i < 10; i++) {
+            if(trainers[i] == null){
+                trainers[i] = trainer;
+                break;
+            }
+        }
+        trainer.DisplayData();
+        System.out.println("Trainer is added Suuccessfully");
+        for (Trainer trainer2 : trainers) {
+            if (trainer2 == null) {
+                continue;
+            }
+            System.out.println(trainer2);
+        }
     }
-    private Trainer[] removeValue(Trainer[] trainers,Trainer trainer){
-        ArrayList<Trainer> temp = new ArrayList<Trainer>(Arrays.asList(trainers));
-        temp.remove(trainer);
-        trainers = temp.toArray(trainers);
-        System.out.println("Trainer is added Successfully");
-        return trainers;
+    private void removeValue(Trainer[] trainers,Trainer trainer){
+        for (int i = 0 ; i<10; i++) {
+            if(trainers[i] == trainer){
+                trainers[i] = null;
+                break;
+            }
+        }
+        System.out.println("Trainer is Successfully deleted");
+        for (Trainer trainer2 : trainers) {
+            if (trainer2 == null) {
+                continue;
+            }
+            System.out.println(trainer2);
+        }
     }
-    private Session[] appendValue(Session[] sessions,Session session){
-        ArrayList<Session> temp = new ArrayList<Session>(Arrays.asList(sessions));
-        temp.add(session);
-        sessions = temp.toArray(sessions);
-        System.out.println("Session is added Successfully");
-        return sessions;
+    private void appendValue(Session[] sessions,Session session){
+        for (int i = 0; i < 10; i++) {
+            if(sessions[i] == null){
+                sessions[i] = session;
+                break;
+            }
+        }
+        session.displayData();
+        System.out.print("Session is Added Successfully");
+        for (Session session2 : sessions) {
+            if(session2 == null){
+                continue;
+            }
+            System.out.println(session2);
+        }
+
     }
-    private Session[] removeValue(Session[] Sessions,Session session){
-        ArrayList<Session> temp = new ArrayList<Session>(Arrays.asList(Sessions));
-        temp.remove(session);
-        Sessions = temp.toArray(Sessions);
-        System.out.println("Session is added Successfully");
-        return Sessions;
+    private void removeValue(Session[] Sessions,Session session){
+        for (int i = 0; i < Sessions.length; i++) {
+            if(Sessions[i] == session){
+                Sessions[i] = null;
+                break;
+            }
+        }
+        System.out.println("Session is deleted Successfully");
+        for (Session session2 : Sessions) {
+            if(session2 == null){
+                continue;
+            }
+            System.out.println(session2);
+        }
     }
-    private Member[] appendValue(Member[] supervise,Member member){
-        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(supervise));
-        temp.add(member);
-        supervise = temp.toArray(supervise);
+    private void appendValue(Member[] supervise,Member member){
+        for (int i = 0; i < supervise.length; i++) {
+            if(supervise[i] == null){
+                supervise[i] = member;
+                break;
+            }
+        }
+        for (Member member2 : supervise) {
+            if(member2 == null){
+                continue;
+            }
+            System.out.println(member2);
+        }
         System.out.println("Member is added Successfully");
-        return supervise;
     }
 
     

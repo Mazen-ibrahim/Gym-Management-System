@@ -1,7 +1,5 @@
 package Project;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Employee extends auothority{
@@ -11,7 +9,7 @@ public class Employee extends auothority{
         super(Name, SSN, Sex, Address, PhoneNumber, Salary, Hire_Date);
     }
 
-    public void AddMember_System(Member[] members){
+    public void AddMember_System(){
         String Name;
         String Sex;
         String Address;
@@ -33,10 +31,10 @@ public class Employee extends auothority{
         System.out.printf("Weight: ");
         weight = scan.nextDouble();
 
-        member = new Member(Name, Sex, Address, phoneNumber, MemberShip, weight,members);
-        appendValue(members, member);
+        member = new Member(Name, Sex, Address, phoneNumber, MemberShip, weight,MembersArray);
+        appendValue(MembersArray, member);
     }
-    public void EditMember_System(Member[] members,int MemberID){
+    public void EditMember_System(int MemberID){
         int choice;
         String Name;
         String Sex;
@@ -45,7 +43,7 @@ public class Employee extends auothority{
         String MemberShip;
         Double weight;
         boolean Done = false;
-        for (Member member : members) {
+        for (Member member : MembersArray) {
             if(member.SSN == MemberID){
                 member.getMemberinfo();
                 System.out.println("Choose which element would you like to edit:");
@@ -108,10 +106,10 @@ public class Employee extends auothority{
             }
         }
     }
-    public void RemoveMember_System(Member[] members,int MemberID){
-        for (Member member : members) {
+    public void RemoveMember_System(int MemberID){
+        for (Member member : MembersArray) {
             if(member.SSN == MemberID){
-                members = removeValue(members, member);
+                removeValue(MembersArray, member);
                 System.out.println("The Member is removed successfully");
             }
             else{
@@ -119,40 +117,52 @@ public class Employee extends auothority{
             }
         }
     }
-    public void AddMember_Session(Session[] sessions,String date,Member member){
-        for (Session session : sessions) {
+    public void AddMember_Session(String date,Member member){
+        for (Session session : SessionsArray) {
             if(session.date.equals(date)){
                 appendValue(session.members_in_Session, member);
             }
         }
     }
-    public void RemoveMember_Session(Session[] sessions,String date,Member member){
-        for (Session session : sessions) {
+    public void RemoveMember_Session(String date,Member member){
+        for (Session session : SessionsArray) {
             if(session.date.equals(date)){
-                session.members_in_Session = removeValue(session.members_in_Session, member);
+                removeValue(session.members_in_Session, member);
             }
         }
     }
     private void appendValue(Member[] members,Member member){
-        for (Member member2 : members) {
-            if(member2 == null){
-                member2 =member;
+        for (int i = 0 ; i<10; i++) {
+            if(members[i] == null){
+                members[i] = member;
                 break;
             }
         }
         member.getMemberinfo();
         System.out.println("Member is added Successfully");
         for (Member member3 : members) {
+            if(member3 == null){
+                continue;
+            }
             System.out.println(member3);
         }
 
     }
-    private Member[] removeValue(Member[] members,Member member){
-        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(members));
-        temp.remove(member);
-        members = temp.toArray(members);
+    private void removeValue(Member[] members,Member member){
+        for (int i = 0 ; i<10; i++) {
+            if(members[i] == member){
+                members[i] = null;
+                break;
+            }
+        }
         System.out.println("Member is Successfully deleted");
-        return members;
-    }
+        for (Member member3 : members) {
+            if(member3 == null){
+                continue;
+            }
+            System.out.println(member3);
+        }
 
+    }
 }
+
