@@ -1,30 +1,37 @@
-package Gym_Management_System;
+package Project;
 
 import java.util.Scanner;
+
 
 public class GymManagementSystem {
 
     
     public static void main(String[] args) {
-        String username;
-        String password;
-        Scanner scan = new Scanner(System.in);
-        
-        username = scan.next();
-        password = scan.next();
-        
         Trainer T1 = new Trainer("Mazen", 3455, "Male", "Shobra", 38942871, 3000);
         Member M1 = new Member("Michael", 7939, "Male", "Shobra", 23789848, "PAYG", 65.5);
         Session S1 = new Session("High Intensity Session", "Weight Lifting", "30-12-2020");
-        Trainer T2;
-        Session S2;
-        Member M2;
+        Trainer []TrainersArray = new Trainer[10];
+        Session []SessionsArray = new Session[10];
+        Member  []MembersArray  = new Member [10];
+        TrainersArray[0] = T1;
+        SessionsArray[0] = S1;
+        MembersArray [0] = M1;
+        
+        Scanner scan = new Scanner(System.in);
+        String SessionDate;
+        String username;
+        String password;
         int Trainer_Id;
         int Member_Id;
-        String SessionDate;
-        
         int choice;
         boolean Done = false;
+        
+        
+        System.out.println("-------- Gym ManagmentSystem --------");
+        System.out.printf("Username: ");
+        username = scan.next();
+        System.out.printf("Password: ");
+        password = scan.next();
         
         if(username.equals("admin")  & password.equals("admin")){
             Adminstrator A1 = new Adminstrator("Loka", 17000, 2065, "Male", "Nasr City", 1523945, "12-5-2010");
@@ -49,61 +56,60 @@ public class GymManagementSystem {
                     case 0:
                         Done = true;
                         System.out.println("Saved.");
+                        scan.close();
                         break;
                     case 1:
-                        System.out.println("Choose a Trainer: ");
-                        T2 = scan.next();
-                        A1.addTrainer_System(T2);
+                        A1.addTrainer_System(TrainersArray);
                         break;
                     case 2:
-                        System.out.println("Choose a Trainer: ");
-                        T2 = scan.next();
                         System.out.println("Enter Trainer ID: ");
                         Trainer_Id = scan.nextInt();
-                        A1.editTrainer_System(T2, Trainer_Id);
+                        A1.editTrainer_System(TrainersArray, Trainer_Id);
                         break;
                     case 3:
-                        System.out.println("Choose a Trainer: ");
-                        T2 = scan.next();
                         System.out.println("Enter Trainer ID: ");
                         Trainer_Id = scan.nextInt();
-                        A1.RemoveTrainer_System(T2, Trainer_Id);
+                        A1.RemoveTrainer_System(TrainersArray, Trainer_Id);
                         break;
                     case 4:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
-                        A1.AddSession(S1);
+                        A1.AddSession(SessionsArray);
                         break;                        
                     case 5:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
                         System.out.println("Enter Session Date: ");
                         SessionDate = scan.next();
-                        A1.editSession(S1, SessionDate);
+                        A1.editSession(SessionsArray, SessionDate);
                         break;  
                     case 6:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
                         System.out.println("Enter Session Date: ");
                         SessionDate = scan.next();
-                        A1.RemoveSession(S1, SessionDate);
+                        A1.RemoveSession(SessionsArray, SessionDate);
                         break;
                     case 7:
                         System.out.println("Enter Trainer Id: ");
                         Trainer_Id = scan.nextInt();
                         System.out.println("Enter Memeber Id: ");
                         Member_Id = scan.nextInt();
-                        A1.AssginTrainer_Member(Trainer_Id, Member_Id);
+                        A1.AssginTrainer_Member(Trainer_Id, Member_Id,MembersArray,TrainersArray);
                         break; 
                     case 8:
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
-                        M2.getMemberinfo();
+                        System.out.println("Enter the Member ID: ");
+                        Member_Id = scan.nextInt();
+                        for (Member member : MembersArray) {
+                            if(member.SSN == Member_Id){
+                                member.getMemberinfo();
+                                break;
+                            }
+                        }
                         break; 
                     case 9:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
-                        S2.display_membersInSession();
+                        System.out.println("Enter Session date: ");
+                        SessionDate = scan.next();
+                        for (Session Session : SessionsArray) {
+                            if(Session.date == SessionDate){
+                                Session.display_membersInSession();
+                                break;
+                            }
+                        }
                         break; 
                     default:
                         System.out.println("Enter Number form range (0-9)");
@@ -114,7 +120,6 @@ public class GymManagementSystem {
         else if(username.equals("employee") & password.equals("12345")){
             Employee E1 = new Employee("Dou7", 14000, 8477, "Male", "El7mamat", 89828978, "27-6-2012");
             System.out.println("Welcome Employee");
-            System.out.println("Welcome Admin");
             System.out.println("Choose what you want to do:");
             System.out.println("Enter 0 when you are Done");
             System.out.println("1: Add Member");
@@ -132,59 +137,68 @@ public class GymManagementSystem {
                 switch (choice) {
                     case 0:
                         Done = true;
+                        scan.close();
                         System.out.println("Saved.");
                         break;
                     case 1:
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
-                        System.out.println("Enter Member ID: ");
-                        Member_Id = scan.nextInt();
-                        E1.AddMember_System(M2, Member_Id);
+                        E1.AddMember_System(MembersArray);
                         break;
                     case 2:
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
                         System.out.println("Enter Member ID: ");
                         Member_Id = scan.nextInt();
-                        E1.EditMember_System(M2, Member_Id);
+                        E1.EditMember_System(MembersArray, Member_Id);
                         break;
                     case 3:
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
                         System.out.println("Enter Member ID: ");
                         Member_Id = scan.nextInt();
-                        E1.RemoveMember_System(M2, Member_Id);
+                        E1.RemoveMember_System(MembersArray, Member_Id);
                         break;
                     case 4:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
                         System.out.println("Enter Session Date: ");
                         SessionDate = scan.next();
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
-                        E1.AddMember_Session(S2, SessionDate, M2);
+                        System.out.println("Enter MemberID: ");
+                        Member_Id = scan.nextInt();
+                        for (Member member : MembersArray) {
+                            if(member.SSN == Member_Id){
+                                E1.AddMember_Session(SessionsArray, SessionDate, member);
+                                break;
+                            }
+                        }
                         break;                        
                     case 5:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
                         System.out.println("Enter Session Date: ");
                         SessionDate = scan.next();
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
-                        E1.RemoveMember_Session(S2, SessionDate, M2);
-                        break;   
+                        System.out.println("Enter MemberID: ");
+                        Member_Id = scan.nextInt();
+                        for (Member member : MembersArray) {
+                            if(member.SSN == Member_Id){
+                                E1.RemoveMember_Session(SessionsArray, SessionDate, member);
+                                break;
+                            }
+                        }
+                        break;      
                     case 6:
-                        System.out.println("Choose a Member: ");
-                        M2 = scan.next();
-                        M2.getMemberinfo();
+                        System.out.println("Enter the Member ID: ");
+                        Member_Id = scan.nextInt();
+                        for (Member member : MembersArray) {
+                            if(member != null && member.SSN == Member_Id){
+                                member.getMemberinfo();
+                                break;
+                            }
+                        }
                         break; 
                     case 7:
-                        System.out.println("Choose a Session: ");
-                        S2 = scan.next();
-                        S2.display_membersInSession();
-                        break; 
+                        System.out.println("Enter Session date: ");
+                        SessionDate = scan.next();
+                        for (Session Session : SessionsArray) {
+                            if(Session.date == SessionDate){
+                                Session.display_membersInSession();
+                                break;
+                            }
+                        }
+                        break;
                     default:
-                        System.out.println("Enter Number form range (0-9)");
+                        System.out.println("Enter Number form range (0-7)");
                         break;
                 }
             }   

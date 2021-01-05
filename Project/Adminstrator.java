@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Adminstrator extends auothority {
-    Trainer[] trainers;
-    Session[] sessions;
+
     Scanner scan = new Scanner(System.in);
 
     public Adminstrator(String Name, int Salary, int SSN, String Sex, String Address, int PhoneNumber, String Hire_Date){
@@ -33,7 +32,7 @@ public class Adminstrator extends auothority {
         System.out.printf("Salary: ");
         Salary = scan.nextInt();
 
-        trainer = new Trainer(Name, Sex, Address, phoneNumber, Salary);
+        trainer = new Trainer(Name, Sex, Address, phoneNumber, Salary,trainers);
         trainers = appendValue(trainers, trainer);
 
         }
@@ -185,7 +184,7 @@ public class Adminstrator extends auothority {
             }
         }
     }
-    public void AssginTrainer_Member(int TrainerID,int MemberID){
+    public void AssginTrainer_Member(int TrainerID,int MemberID, Member[] members,Trainer[] trainers){
         int trainer_num;
         int member_num;
         int num_of_members;

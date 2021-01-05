@@ -1,7 +1,6 @@
 package Project;
 
 public abstract class notAuothority {
-    Member[] members;
     String Name;
     int    SSN;
     String Sex;
@@ -32,11 +31,7 @@ public abstract class notAuothority {
                 phone[i] = PhoneNumber;
             }
         }
-        for (int i = 0; i<members.length +1;i++){
-            if(members[i] == null){
-                SSN = i;
-            }
-        }
+
 
     }
 }

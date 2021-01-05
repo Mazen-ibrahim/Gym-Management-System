@@ -5,15 +5,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Employee extends auothority{
-    Member[] members;
-    Session[] sessions;
     Scanner scan = new Scanner(System.in);
     
     public Employee(String Name, int Salary, int SSN, String Sex, String Address, int PhoneNumber, String Hire_Date){
         super(Name, SSN, Sex, Address, PhoneNumber, Salary, Hire_Date);
     }
 
-    public void AddMember_System(Member[] members,int MemberID){
+    public void AddMember_System(Member[] members){
         String Name;
         String Sex;
         String Address;
@@ -35,8 +33,8 @@ public class Employee extends auothority{
         System.out.printf("Weight: ");
         weight = scan.nextDouble();
 
-        member = new Member(Name, Sex, Address, phoneNumber, MemberShip, weight);
-        members = appendValue(members, member);
+        member = new Member(Name, Sex, Address, phoneNumber, MemberShip, weight,members);
+        appendValue(members, member);
     }
     public void EditMember_System(Member[] members,int MemberID){
         int choice;
@@ -124,7 +122,7 @@ public class Employee extends auothority{
     public void AddMember_Session(Session[] sessions,String date,Member member){
         for (Session session : sessions) {
             if(session.date.equals(date)){
-                session.members_in_Session = appendValue(session.members_in_Session, member);
+                appendValue(session.members_in_Session, member);
             }
         }
     }
@@ -135,19 +133,26 @@ public class Employee extends auothority{
             }
         }
     }
-    private Member[] appendValue(Member[] supervise,Member member){
-        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(supervise));
-        temp.add(member);
-        supervise = temp.toArray(supervise);
+    private void appendValue(Member[] members,Member member){
+        for (Member member2 : members) {
+            if(member2 == null){
+                member2 =member;
+                break;
+            }
+        }
+        member.getMemberinfo();
         System.out.println("Member is added Successfully");
-        return supervise;
+        for (Member member3 : members) {
+            System.out.println(member3);
+        }
+
     }
-    private Member[] removeValue(Member[] supervise,Member member){
-        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(supervise));
+    private Member[] removeValue(Member[] members,Member member){
+        ArrayList<Member> temp = new ArrayList<Member>(Arrays.asList(members));
         temp.remove(member);
-        supervise = temp.toArray(supervise);
-        System.out.println("Member is added Successfully");
-        return supervise;
+        members = temp.toArray(members);
+        System.out.println("Member is Successfully deleted");
+        return members;
     }
 
 }
