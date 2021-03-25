@@ -17,8 +17,11 @@ public class Session {
     public void display_membersInSession(){
         for (Member member : members_in_Session) {
             if (member != null) {
-                member.getMemberinfo();
+                System.out.println(member);
             }
         }
+    }
+    public String toString(){
+        return "description: "+description +"   Type: "+type;
     }
 }
