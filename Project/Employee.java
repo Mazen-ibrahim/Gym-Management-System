@@ -33,6 +33,9 @@ public class Employee extends auothority{
 
         member = new Member(Name, Sex, Address, phoneNumber, MemberShip, weight,MembersArray);
         appendValue(MembersArray, member);
+        System.out.println("Member added successfully");
+        System.out.println("---------------------------------");
+
     }
     public void EditMember_System(int MemberID){
         int choice;
@@ -45,7 +48,7 @@ public class Employee extends auothority{
         boolean Done = false;
         for (Member member : MembersArray) {
             if(member.SSN == MemberID){
-                member.getMemberinfo();
+                System.out.println(member);
                 System.out.println("Choose which element would you like to edit:");
                 System.out.println("Enter 0 when you are Done");
                 System.out.println("1: Name");
@@ -99,6 +102,9 @@ public class Employee extends auothority{
                             System.out.println("Enter Number form range (0-5)");
                             break;
                     }
+                    System.out.println("edit is saved");
+                    System.out.println("---------------------------------");
+
                 }
             }
             else{
@@ -111,9 +117,11 @@ public class Employee extends auothority{
             if(member.SSN == MemberID){
                 removeValue(MembersArray, member);
                 System.out.println("The Member is removed successfully");
+
             }
             else{
                 System.out.println("I couldn't find this Member in our System");
+                
             }
         }
     }
@@ -123,6 +131,7 @@ public class Employee extends auothority{
                 appendValue(session.members_in_Session, member);
             }
         }
+        System.out.println(member+"is added to the session");
     }
     public void RemoveMember_Session(String date,Member member){
         for (Session session : SessionsArray) {
@@ -130,39 +139,7 @@ public class Employee extends auothority{
                 removeValue(session.members_in_Session, member);
             }
         }
-    }
-    private void appendValue(Member[] members,Member member){
-        for (int i = 0 ; i<10; i++) {
-            if(members[i] == null){
-                members[i] = member;
-                break;
-            }
-        }
-        member.getMemberinfo();
-        System.out.println("Member is added Successfully");
-        for (Member member3 : members) {
-            if(member3 == null){
-                continue;
-            }
-            System.out.println(member3);
-        }
-
-    }
-    private void removeValue(Member[] members,Member member){
-        for (int i = 0 ; i<10; i++) {
-            if(members[i] == member){
-                members[i] = null;
-                break;
-            }
-        }
-        System.out.println("Member is Successfully deleted");
-        for (Member member3 : members) {
-            if(member3 == null){
-                continue;
-            }
-            System.out.println(member3);
-        }
+        System.out.println("we have remove the member from the session");
 
     }
 }
-

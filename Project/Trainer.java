@@ -1,11 +1,12 @@
 package Project;
 
+import java.util.Arrays;
+
 public class Trainer extends notAuothority{
 
     Session[] session;
     Session[] Holds;
-    Member[] members;
-    Member[] Supervise;
+    Member [] Supervise;
     int Salary;
 
     public Trainer(String Name, int SSN, String Sex, String Address, int PhoneNumber, int Salary){
@@ -23,14 +24,12 @@ public class Trainer extends notAuothority{
         }
     }
     
-    public void DisplayData(){
-        System.out.println("Name: "+Name);
-        System.out.println("Sex: "+ Sex);
-        System.out.println("Address: "+Address);
-        System.out.println("Salary: "+Salary);
-        System.out.println("Phone Number:");
-        for(int i = 0 ; i<3;i++){
-            System.out.println(phone[i]);
-        }
+    public String toString(){
+        return  "Name: "+ Name +
+                "\nSex: "+ Sex + 
+                "\nAddress: "+Address+
+                "\nSalary: "+Salary+
+                "\nPhone Number:" + Arrays.toString(phone);
+        
     }
 }

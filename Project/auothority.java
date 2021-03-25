@@ -1,8 +1,11 @@
 package Project;
 
+import java.util.Scanner;
+
 public abstract class auothority {
-    Session []SessionsArray = new Session[10];
-    Member[] MembersArray = new Member[10];
+    Scanner sc = new Scanner(System.in);
+    static Session []SessionsArray = new Session[10];
+    static Member[] MembersArray = new Member[10];
     int []phone = new int[3];
     int    SSN;
     int Salary;
@@ -27,29 +30,51 @@ public abstract class auothority {
         this.Hire_Date = Hire_Date;
     }
 
-
-
-    public void ViewMembers_Session(Session[] sessions){
-        for (Session session : sessions) {
-            if(session != null){
-                session.display_membersInSession();
+    protected void Members_of_session(String date){
+        System.out.println("Enter Session date: ");
+        date = sc.next();
+        for (Session Session : auothority.SessionsArray) {
+            if(Session.date == date){
+                Session.display_membersInSession();
+                break;
             }
         }
     }
-    public void ViewMember_Membership(Member[] members,int MemberID){
-        for (Member member : members) {
-            if(member.SSN == MemberID){
-                System.out.println(member.MemberShip);
+
+    protected void Members_of_membership(String type){
+        System.out.println("Enter the Membership type: ");
+        type = sc.next();
+        for (Member member : MembersArray) {
+            if(member.MemberShip == type){
+                System.out.println(member);
             }
         }
     }
-    public void ViewMembers_info(Member[] members){
+
+    protected void ViewMembers_info(Member[] members){
         for (Member member : members) {
             if (member != null) {
-                member.getMemberinfo();
+                System.out.println(member);
             }
         }
     }
+    protected void appendValue(Object[] Objects,Object Object){
+        for (int i = 0 ; i<10; i++) {
+            if(Objects[i] == null){
+                Objects[i] = Object;
+                break;
+            }
+        }
 
+    }
+    protected void removeValue(Object[] Objects,Object Object){
+        for (int i = 0 ; i<10; i++) {
+            if(Objects[i] == Object){
+                Objects[i] = null;
+                break;
+            }
+        }
+
+    }
 
 }

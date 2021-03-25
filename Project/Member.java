@@ -1,5 +1,7 @@
 package Project;
 
+import java.util.Arrays;
+
 public class Member extends notAuothority{
     String MemberShip;
     Double weight;
@@ -22,19 +24,14 @@ public class Member extends notAuothority{
     }
     
 
-    public void getMemberinfo(){
-        System.out.println("------------------");
-        System.out.println("Name: "+Name);
-        System.out.println("SSN: "+ SSN);
-        System.out.println("Sex: "+ Sex);
-        System.out.println("Address: "+ Address);
-        System.out.println("MemberShip: "+MemberShip);
-        System.out.println("PhoneNumbers:");
-        for(int i = 0; i < 3 ;i++){
-            if(phone[i] != 0){                        
-                System.out.println("    "+phone[i]);
-            }
-        }        
-        System.out.println("weight: "+weight);
+    public String toString(){
+        return "------------------"+
+                "\nName:        "+ Name+
+                "\nSSN:         "+ SSN+
+                "\nSex:         "+ Sex+
+                "\nAddress:     "+ Address+
+                "\nMemberShip:  "+ MemberShip+
+                "\nPhoneNumbers:"+Arrays.toString(phone)+        
+                "\nweight: "+weight;
     }
 }

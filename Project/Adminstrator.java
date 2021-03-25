@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Adminstrator extends auothority {
     
-    Trainer []TrainersArray = new Trainer[10];
+    static Trainer []TrainersArray = new Trainer[10];
     Scanner scan = new Scanner(System.in);
 
     public Adminstrator(String Name, int Salary, int SSN, String Sex, String Address, int PhoneNumber, String Hire_Date){
@@ -33,6 +33,8 @@ public class Adminstrator extends auothority {
 
         trainer = new Trainer(Name, Sex, Address, phoneNumber, Salary,TrainersArray);
         appendValue(TrainersArray, trainer);
+        System.out.println("Trainer Added successfully");
+        System.out.println("---------------------------------");
 
         }
     public void editTrainer_System(int TrainerID){
@@ -45,7 +47,7 @@ public class Adminstrator extends auothority {
         boolean Done = false;
         for (Trainer trainer : TrainersArray) {
             if(trainer.SSN == TrainerID){
-                trainer.DisplayData();
+                System.out.println(trainer);
                 System.out.println("Choose which element would you like to edit:");
                 System.out.println("Enter 0 when you are Done");
                 System.out.println("1: Name");
@@ -93,6 +95,8 @@ public class Adminstrator extends auothority {
                             System.out.println("Enter Number form range (0-5)");
                             break;
                     }
+                    System.out.println("Edit is saved");
+                    System.out.println("---------------------------------");
                 }
             }
             else{
@@ -126,6 +130,8 @@ public class Adminstrator extends auothority {
 
         session = new Session(description, type, date);
         appendValue(SessionsArray, session);
+        System.out.println("Session added successfully");
+        System.out.println("---------------------------------");
 
     }
     public void editSession(String date){
@@ -133,7 +139,7 @@ public class Adminstrator extends auothority {
         int choice;
         for (Session session : SessionsArray) {
             if(session.date.equals(date)){
-                session.displayData();
+                System.out.println(session);
                 System.out.println("Choose which element would you like to edit:");
                 System.out.println("Enter 0 when you are Done");
                 System.out.println("1: description");
@@ -167,6 +173,9 @@ public class Adminstrator extends auothority {
                             System.out.println("Enter Number form range (0-3)");
                             break;
                     }
+                    System.out.println("edit is saved.");
+                    System.out.println("---------------------------------");
+
                 }
             } else{
                 System.out.println("There is no Session in that day");
@@ -184,9 +193,9 @@ public class Adminstrator extends auothority {
         }
     }
     public void AssginTrainer_Member(int TrainerID,int MemberID){
-        int trainer_num;
-        int member_num;
-        int num_of_members;
+        int trainer_num    = 0;
+        int member_num     = 0;
+        int num_of_members = 0;
 
         for (int i =0; i<MembersArray.length ;i++) {
             System.out.println("Members");
@@ -213,88 +222,9 @@ public class Adminstrator extends auothority {
             
             appendValue(TrainersArray[trainer_num].Supervise, MembersArray[member_num]);
         }
-    }
-    
-    private void appendValue(Trainer[] trainers,Trainer trainer){
-        for (int i = 0; i < 10; i++) {
-            if(trainers[i] == null){
-                trainers[i] = trainer;
-                break;
-            }
-        }
-        trainer.DisplayData();
-        System.out.println("Trainer is added Suuccessfully");
-        for (Trainer trainer2 : trainers) {
-            if (trainer2 == null) {
-                continue;
-            }
-            System.out.println(trainer2);
-        }
-    }
-    private void removeValue(Trainer[] trainers,Trainer trainer){
-        for (int i = 0 ; i<10; i++) {
-            if(trainers[i] == trainer){
-                trainers[i] = null;
-                break;
-            }
-        }
-        System.out.println("Trainer is Successfully deleted");
-        for (Trainer trainer2 : trainers) {
-            if (trainer2 == null) {
-                continue;
-            }
-            System.out.println(trainer2);
-        }
-    }
-    private void appendValue(Session[] sessions,Session session){
-        for (int i = 0; i < 10; i++) {
-            if(sessions[i] == null){
-                sessions[i] = session;
-                break;
-            }
-        }
-        session.displayData();
-        System.out.print("Session is Added Successfully");
-        for (Session session2 : sessions) {
-            if(session2 == null){
-                continue;
-            }
-            System.out.println(session2);
-        }
+        System.out.println(MembersArray[member_num]+"is assigned to "+TrainersArray[trainer_num]);
+        System.out.println("---------------------------------");
 
     }
-    private void removeValue(Session[] Sessions,Session session){
-        for (int i = 0; i < Sessions.length; i++) {
-            if(Sessions[i] == session){
-                Sessions[i] = null;
-                break;
-            }
-        }
-        System.out.println("Session is deleted Successfully");
-        for (Session session2 : Sessions) {
-            if(session2 == null){
-                continue;
-            }
-            System.out.println(session2);
-        }
-    }
-    private void appendValue(Member[] supervise,Member member){
-        for (int i = 0; i < supervise.length; i++) {
-            if(supervise[i] == null){
-                supervise[i] = member;
-                break;
-            }
-        }
-        for (Member member2 : supervise) {
-            if(member2 == null){
-                continue;
-            }
-            System.out.println(member2);
-        }
-        System.out.println("Member is added Successfully");
-    }
-
-    
-
     
 }

@@ -12,14 +12,15 @@ public class GymManagementSystem {
         Trainer T1 = new Trainer("Mazen", 3455, "Male", "Shobra", 38942871, 3000);
         Member M1 = new Member("Michael", 7939, "Male", "Shobra", 23789848, "PAYG", 65.5);
         Session S1 = new Session("High Intensity Session", "Weight Lifting", "30-12-2020");
-        A1.TrainersArray[0] = T1;
-        A1.SessionsArray[0] = S1;
-        E1.MembersArray [0] = M1;
+        Adminstrator.TrainersArray[0] = T1;
+        auothority.SessionsArray[0] = S1;
+        auothority.MembersArray [0] = M1;
         
         Scanner scan = new Scanner(System.in);
         String SessionDate;
         String username;
         String password;
+        String MembershipType;
         int Trainer_Id;
         int Member_Id;
         int choice;
@@ -32,22 +33,26 @@ public class GymManagementSystem {
         System.out.printf("Password: ");
         password = scan.next();
         
-        if(username.equals("admin")  & password.equals("admin")){
-            System.out.println("Welcome Admin");
+        if(username.equals("admin") && password.equals("admin")){
+            System.out.println("---------------------------------");
+            System.out.println("---------------------------------");
+            System.out.println("------- Welcome Admin -------");
+            System.out.println("---------------------------------");
             System.out.println("Choose what you want to do:");
             System.out.println("Enter 0 when you are Done");
-            System.out.println("1: Add Trainer");
-            System.out.println("2: Edit Trainer");
-            System.out.println("3: Remove Trainer");
-            System.out.println("4: Add Session");
-            System.out.println("5: Edit Session");
-            System.out.println("6: Delete Session");
-            System.out.println("7: Assign Trainer to a Member");
-            System.out.println("8: View the Information of a Member");
-            System.out.println("9: View Members in a Session");
+            System.out.println("1 : Add Trainer");
+            System.out.println("2 : Edit Trainer");
+            System.out.println("3 : Remove Trainer");
+            System.out.println("4 : Add Session");
+            System.out.println("5 : Edit Session");
+            System.out.println("6 : Delete Session");
+            System.out.println("7 : Assign Trainer to a Member");
+            System.out.println("8 : View members under a specific type of membership");
+            System.out.println("9 : View any member in a specific session");
+            System.out.println("10: View all members info");
             
             while (Done != true){
-
+                System.out.println("---------------------------------");
                 System.out.printf("Your choice: ");
                 choice = scan.nextInt();
                 switch (choice) {
@@ -90,33 +95,29 @@ public class GymManagementSystem {
                         A1.AssginTrainer_Member(Trainer_Id, Member_Id);
                         break; 
                     case 8:
-                        System.out.println("Enter the Member ID: ");
-                        Member_Id = scan.nextInt();
-                        for (Member member : E1.MembersArray) {
-                            if(member.SSN == Member_Id){
-                                member.getMemberinfo();
-                                break;
-                            }
-                        }
+                        System.out.println("Enter the membership type: ");
+                        MembershipType = scan.next();
+                        A1.Members_of_membership(MembershipType);
                         break; 
                     case 9:
                         System.out.println("Enter Session date: ");
                         SessionDate = scan.next();
-                        for (Session Session : A1.SessionsArray) {
-                            if(Session.date == SessionDate){
-                                Session.display_membersInSession();
-                                break;
-                            }
-                        }
-                        break; 
+                        E1.Members_of_session(SessionDate);
+                        break;
+                    case 10:
+                        A1.ViewMembers_info(auothority.MembersArray);
+                        break;
                     default:
-                        System.out.println("Enter Number form range (0-9)");
+                        System.out.println("Enter Number form range (0-10)");
                         break;
                 }
             } 
         }
-        else if(username.equals("employee") & password.equals("12345")){
-            System.out.println("Welcome Employee");
+        else if(username.equals("employee") && password.equals("12345")){
+            System.out.println("---------------------------------");
+            System.out.println("---------------------------------");
+            System.out.println("-------- Welcome Employee --------");
+            System.out.println("---------------------------------");
             System.out.println("Choose what you want to do:");
             System.out.println("Enter 0 when you are Done");
             System.out.println("1: Add Member");
@@ -124,11 +125,12 @@ public class GymManagementSystem {
             System.out.println("3: Remove Member");
             System.out.println("4: Add Member to Session");
             System.out.println("5: Remove Member from Session");
-            System.out.println("6: View the Information of a Member");
-            System.out.println("7: View Members in a Session");
+            System.out.println("6: View members under a specific type of membership");
+            System.out.println("7: View any member in a specific session");
+            System.out.println("8: View all members info");
             
             while (Done != true){
-
+                System.out.println("---------------------------------");
                 System.out.printf("Your choice: ");
                 choice = scan.nextInt();
                 switch (choice) {
@@ -155,7 +157,7 @@ public class GymManagementSystem {
                         SessionDate = scan.next();
                         System.out.println("Enter MemberID: ");
                         Member_Id = scan.nextInt();
-                        for (Member member : E1.MembersArray) {
+                        for (Member member : auothority.MembersArray) {
                             if(member.SSN == Member_Id){
                                 E1.AddMember_Session(SessionDate, member);
                                 break;
@@ -167,35 +169,28 @@ public class GymManagementSystem {
                         SessionDate = scan.next();
                         System.out.println("Enter MemberID: ");
                         Member_Id = scan.nextInt();
-                        for (Member member : E1.MembersArray) {
+                        for (Member member : auothority.MembersArray) {
                             if(member.SSN == Member_Id){
-                                E1.RemoveMember_Session( SessionDate, member);
+                                E1.RemoveMember_Session(SessionDate, member);
                                 break;
                             }
                         }
                         break;      
                     case 6:
-                        System.out.println("Enter the Member ID: ");
-                        Member_Id = scan.nextInt();
-                        for (Member member : E1.MembersArray) {
-                            if(member != null && member.SSN == Member_Id){
-                                member.getMemberinfo();
-                                break;
-                            }
-                        }
+                        System.out.println("Enter the membership type: ");
+                        MembershipType = scan.next();
+                        E1.Members_of_membership(MembershipType);
                         break; 
                     case 7:
                         System.out.println("Enter Session date: ");
                         SessionDate = scan.next();
-                        for (Session Session : A1.SessionsArray) {
-                            if(Session.date == SessionDate){
-                                Session.display_membersInSession();
-                                break;
-                            }
-                        }
+                        E1.Members_of_session(SessionDate);
+                        break;
+                    case 8:
+                        E1.ViewMembers_info(auothority.MembersArray);
                         break;
                     default:
-                        System.out.println("Enter Number form range (0-7)");
+                        System.out.println("Enter Number form range (0-8)");
                         break;
                 }
             }   
